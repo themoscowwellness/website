@@ -4,32 +4,67 @@ const today = new Date();
 
 <footer>
 	<div class="footer-inner">
-		<p class="contact-line">Email: hello@themoscowwellness.com</p>
-		<p class="contact-line">Instagram: @themoscowwellness</p>
-		<p class="footer-meta">&copy; {today.getFullYear()} THE MOSCOW WELLNESS</p>
+		<div class="footer-brand">
+			<p class="footer-title">THE MOSCOW WELLNESS</p>
+			<p class="footer-description">
+				A curated guide to low-tox living, natural brands, and modern wellness culture in Moscow.
+			</p>
+		</div>
+		<div class="footer-contact">
+			<p>Email: hello@themoscowwellness.com</p>
+			<p>Instagram: @themoscowwellness</p>
+		</div>
 	</div>
+	<p class="footer-meta">&copy; {today.getFullYear()} THE MOSCOW WELLNESS</p>
 </footer>
 
 <style>
 	footer {
-		padding: 3rem 1.5rem 4.5rem;
-		text-align: center;
+		padding: 4rem 1.5rem 4.5rem;
+		background: rgba(255, 255, 255, 0.8);
+		border-top: 1px solid rgba(0, 0, 0, 0.05);
 		color: var(--color-muted);
 	}
 	.footer-inner {
 		display: grid;
-		gap: 0.8rem;
-		justify-items: center;
+		grid-template-columns: 1fr 1fr;
+		gap: 1.5rem;
+		align-items: start;
+		max-width: var(--max-width);
+		margin: 0 auto;
 	}
-	.contact-line {
+	.footer-title {
+		margin: 0 0 0.75rem;
+		font-family: var(--font-heading);
+		font-size: 1rem;
+		letter-spacing: 0.4em;
+		text-transform: uppercase;
+		color: var(--color-text);
+	}
+	.footer-description,
+	.footer-contact p {
 		margin: 0;
 		font-size: 0.95rem;
-		letter-spacing: 0.04em;
+		line-height: 1.8;
+	}
+	.footer-contact p {
+		color: var(--color-text);
 	}
 	.footer-meta {
-		margin: 0;
+		display: block;
+		margin: 2rem auto 0;
+		max-width: var(--max-width);
 		font-size: 0.82rem;
 		letter-spacing: 0.18em;
 		text-transform: uppercase;
+		color: var(--color-muted);
+	}
+	@media (max-width: 720px) {
+		.footer-inner {
+			grid-template-columns: 1fr;
+		}
+		.footer-meta {
+			text-align: center;
+		}
 	}
 </style>

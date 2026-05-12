@@ -4,16 +4,45 @@ import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 import { getCollection } from 'astro:content';
+import HeroImage from '../assets/blog-placeholder-about.jpg';
+import Image1 from '../assets/blog-placeholder-1.jpg';
+import Image2 from '../assets/blog-placeholder-2.jpg';
+import Image3 from '../assets/blog-placeholder-3.jpg';
 
 const posts = await getCollection('blog');
 const featured = posts.slice(0, 3);
+const featuredImages = [Image1, Image2, Image3];
 const categories = [
-	'Beauty',
-	'Food & Drink',
-	'Home',
-	'Women’s Health',
-	'Wellness Culture',
-	'Fashion',
+	{
+		title: 'Beauty',
+		icon: '🧴',
+		description: 'Low-tox skincare, natural makeup, and beauty rituals.',
+	},
+	{
+		title: 'Food & Drink',
+		icon: '🍽️',
+		description: 'Healthy eating, clean ingredients, and local spots.',
+	},
+	{
+		title: 'Home',
+		icon: '🏡',
+		description: 'Non-toxic living, cleaning, and mindful interiors.',
+	},
+	{
+		title: 'Women’s Health',
+		icon: '🩺',
+		description: 'Hormonal health, cycle awareness, and wellbeing.',
+	},
+	{
+		title: 'Wellness Culture',
+		icon: '🌿',
+		description: 'Practices, places, and people inspiring a mindful life.',
+	},
+	{
+		title: 'Fashion',
+		icon: '👗',
+		description: 'Conscious brands, natural fabrics, and timeless style.',
+	},
 ];
 ---
 
@@ -31,9 +60,15 @@ const categories = [
 					<h1>{SITE_TITLE}</h1>
 					<p class="tagline">{SITE_DESCRIPTION}</p>
 					<p class="intro">
-						A quiet edit of Moscow living, bringing low-tox rituals, thoughtful brands, and contemporary
-						wellness culture into one warm, calm space.
+						Thoughtful recommendations, trusted places, and conscious choices for everyday life.
 					</p>
+					<a class="primary-button" href="/blog">
+						Explore guides
+						<span aria-hidden="true">→</span>
+					</a>
+				</div>
+				<div class="hero-visual">
+					<img src={HeroImage} alt="Wellness still life with candle and ceramics" />
 				</div>
 			</section>
 
@@ -45,32 +80,43 @@ const categories = [
 
 				<div class="category-grid">
 					{categories.map((category) => (
-						<a class="category-card" href="#" aria-label={`Explore ${category}`}>
-							<span>{category}</span>
+						<a class="category-card" href="#" aria-label={`Explore ${category.title}`}>
+						<span class="category-icon" aria-hidden="true">{category.icon}</span>
+							<div>
+								<p class="card-title">{category.title}</p>
+								<p class="category-description">{category.description}</p>
+							</div>
 						</a>
 					))}
 				</div>
 			</section>
 
 			<section class="featured-guides">
-				<div class="section-heading">
-					<span class="section-label">Featured Guides</span>
-					<h2>Recent editorial notes</h2>
+				<div class="featured-heading">
+					<div>
+						<span class="section-label">Featured Guides</span>
+						<h2>Latest Editorial Notes</h2>
+					</div>
+					<a class="secondary-link" href="/blog">View all guides →</a>
 				</div>
 
 				<div class="post-grid">
-					{featured.map((post) => (
+					{featured.map((post, index) => (
 						<article class="post-card">
 							<a href={`/blog/${post.slug}`}>
-								<p class="post-meta">
-									{new Date(post.data.pubDate).toLocaleDateString('en-US', {
-										month: 'short',
-										day: 'numeric',
-										year: 'numeric',
-									})}
-								</p>
-								<h3>{post.data.title}</h3>
-								<p>{post.data.description}</p>
+								<img class="post-image" src={featuredImages[index]} alt={post.data.title} />
+								<div class="post-copy">
+									<p class="post-meta">
+										{new Date(post.data.pubDate).toLocaleDateString('en-US', {
+											month: 'short',
+											day: 'numeric',
+											year: 'numeric',
+										})}
+									</p>
+									<h3>{post.data.title}</h3>
+									<p>{post.data.description}</p>
+									<p class="read-link">Read guide →</p>
+								</div>
 							</a>
 						</article>
 					))}
